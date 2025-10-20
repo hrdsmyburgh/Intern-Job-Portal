@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/img/logo/logo22.png">
 
     <!-- CSS here -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -43,7 +44,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-3 col-md-2">
                         <div class="logo">
-                            <a href="index.html"><img src="assets/img/logo/logo22.png" alt=""></a>
+                            <a href="index.html" title="Go to Home"><img src="assets/img/logo/logo22.png" alt="Home"></a>
                         </div>  
                     </div>
                     <div class="col-lg-9 col-md-9">
@@ -82,16 +83,16 @@
             <form id="loginForm">
                 <div class="user-details">
                     <div class="input-box">
-                        <span class="details">Email</span>
-                        <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Enter your email" required title="Enter your email">
                     </div>
                     <div class="input-box">
-                        <span class="details">Password</span>
-                        <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" placeholder="Enter your password" required title="Enter your password">
                     </div>
                 </div>
                 <div class="button">
-                    <input type="submit" value="Login">
+                    <input type="submit" value="Login" title="Login">
                 </div>
             </form>
         </div>
@@ -144,8 +145,8 @@
                                                 class="placeholder hide-on-focus" onfocus="this.placeholder = ''"
                                                 onblur="this.placeholder = ' Email Address '">
                                         <div class="form-icon">
-                                            <button type="submit" name="submit" id="newsletter-submit"
-                                                     class="email_icon newsletter-submit button-contactForm"><img src="assets/img/icon/form.png" alt=""></button>
+                                            <button type="submit" name="submit" id="newsletter-submit" title="Submit newsletter email"
+                                                     class="email_icon newsletter-submit button-contactForm"><img src="assets/img/icon/form.png" alt="Submit"></button>
                                         </div>
                                         <div class="mt-10 info"></div>
                                     </form>

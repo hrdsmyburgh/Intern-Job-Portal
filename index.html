@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="manifest" href="site.webmanifest">
 		<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+        <link rel="apple-touch-icon" href="assets/img/logo/logo22.png">
 
 		<!-- CSS here -->
             <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -46,7 +47,7 @@
                         <div class="col-lg-3 col-md-2">
                             <!-- Logo -->
                             <div class="logo">
-                                <a href="index.html"><img src="assets/img/logo/logo22.png" alt=""></a>
+                                <a href="index.html" title="Go to Home"><img src="assets/img/logo/logo22.png" alt="Home"></a>
                             </div>  
                         </div>
                         <div class="col-lg-9 col-md-9">
@@ -56,12 +57,15 @@
                                     <nav class="d-none d-lg-block">
                                         <ul id="navigation">
                                             <li><a href="index.html">Home</a></li>
+                                            <li><a href="about.html">About</a></li>
                                             <li><a href="job_listing.html">Find Jobs</a></li>
-                                             
+                                            <li><a href="employerjobposting.html">Post Job</a></li>
                                             <li><a href="contact.html">Contact</a></li>
-                                            <li><a href="studentprofile.html">My Profile</a></li>
-                                             <li><a href="myapplications.html" id="nav-myapplications">My Applications</a></li>
-    <li><a href="employeradminpage.html" id="nav-employeradmin">Employer Admin</a></li>
+                                            <li id="nav-myprofile" style="display:none;"><a href="studentprofile.html">My Profile</a></li>
+                                            <li id="nav-myapplications" style="display:none;"><a href="myapplications.html">My Applications</a></li>
+                                            <li id="nav-employeradmin" style="display:none;"><a href="employeradminpage.html">Employer Admin</a></li>
+                                            <li id="nav-login"><a href="loginpage.html">Login</a></li>
+                                            <li id="nav-logout" style="display:none;"><a href="#" onclick="handleLogout(); return false;">Logout</a></li>
                                         </ul>
                                     </nav>
                                 </div>          
@@ -105,15 +109,9 @@
                                     <div class="input-form">
                                         <input type="text" placeholder="Job Tittle or keyword">
                                     </div>
-                                    <div class="select-form">
-                                        <div class="select-itms">
-                                            <select name="select" id="select1">
-                                                <option value="">Location 1</option>
-                                                <option value="">Location 2</option>
-                                                <option value="">Location 3</option>
-                                                <option value="">Location 4</option>
-                                            </select>
-                                        </div>
+                                    <div class="input-form">
+                                        <input type="text" id="locationInput" name="location" placeholder="Type location..." autocomplete="off" title="Type your job location">
+                                        <div id="locationSuggestions" style="position: absolute; background: #fff; border: 1px solid #ccc; border-top: none; max-height: 180px; overflow-y: auto; display: none; z-index: 999; width:100%"></div>
                                     </div>
                                     <div class="search-form">
                                         <a href="job_listing.html">Find job</a>
@@ -233,7 +231,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="browse-btn2 text-center mt-50">
-                            <a href="job_listing.html" class="border-btn2">Browse All Sectors</a>
+                            <a href="job_listing.html" class="border-btn2" title="Browse all sectors">Browse All Sectors</a>
                         </div>
                     </div>
                 </div>
@@ -462,8 +460,7 @@
                                          class="placeholder hide-on-focus" onfocus="this.placeholder = ''"
                                          onblur="this.placeholder = ' Email Address '">
                                          <div class="form-icon">
-                                             <button type="submit" name="submit" id="newsletter-submit"
-                                             class="email_icon newsletter-submit button-contactForm"><img src="assets/img/icon/form.png" alt=""></button>
+                                             <button type="submit" name="submit" id="newsletter-submit" title="Submit newsletter email" class="email_icon newsletter-submit button-contactForm"><img src="assets/img/icon/form.png" alt="Submit"></button>
                                          </div>
                                          <div class="mt-10 info"></div>
                                      </form>
@@ -515,17 +512,87 @@
 		<!-- Jquery Plugins, main Jquery -->	
         <script src="./assets/js/plugins.js"></script>
         <script src="./assets/js/main.js"></script>
-       <script>document.addEventListener('DOMContentLoaded', function() {
+       <script>
+function updateNavForAuth() {
     const userType = localStorage.getItem('userType');
-    if (userType === 'employer') {
-        const myAppLink = document.getElementById('nav-myapplications');
-        if (myAppLink) myAppLink.style.display = 'none';
+    document.getElementById('nav-logout').style.display = userType ? '' : 'none';
+    document.getElementById('nav-login').style.display = userType ? 'none' : '';
+    document.getElementById('nav-myprofile').style.display = userType ? '' : 'none';
+    document.getElementById('nav-myapplications').style.display = userType === 'student' ? '' : 'none';
+    document.getElementById('nav-employeradmin').style.display = userType === 'employer' ? '' : 'none';
+}
+function handleLogout() {
+    localStorage.clear();
+    // Add any further session/cookie removal here
+    window.location.href = 'loginpage.html';
+}
+document.addEventListener('DOMContentLoaded', updateNavForAuth);
+
+// --- Autocomplete for location input (dynamic from job listings) ---
+const locationInput = document.getElementById("locationInput");
+const locationSuggestions = document.getElementById("locationSuggestions");
+let locations = [];
+
+// Fetch and parse locations from backend jobs API
+function fetchJobLocations() {
+    const token = localStorage.getItem('authToken');
+    if(!token) {
+        console.log('No auth token found for job locations');
+        return;
     }
-    if (userType === 'student') {
-        const empAdminLink = document.getElementById('nav-employeradmin');
-        if (empAdminLink) empAdminLink.style.display = 'none';
-    }
-});</script>
+    fetch('http://127.0.0.1:8000/api/job/jobs/', {
+        headers: { Authorization: 'Token ' + token }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(!Array.isArray(data.results)) return;
+        const locSet = new Set(data.results.map(j => j.location).filter(Boolean));
+        locations = Array.from(locSet);
+        console.log('Loaded locations:', locations);
+    })
+    .catch(err => console.log('Error fetching job locations:', err));
+}
+fetchJobLocations();
+
+if (locationInput) {
+    locationInput.addEventListener("input", function() {
+        const value = this.value.trim().toLowerCase();
+        locationSuggestions.innerHTML = "";
+        if (!value || locations.length === 0) {
+            locationSuggestions.style.display = "none";
+            return;
+        }
+        const matches = locations.filter(loc => loc && loc.toLowerCase().startsWith(value));
+        if (matches.length === 0) {
+            locationSuggestions.style.display = "none";
+            return;
+        }
+        matches.forEach(loc => {
+            const div = document.createElement("div");
+            div.textContent = loc;
+            div.style.padding = "8px";
+            div.style.cursor = "pointer";
+            div.addEventListener("mousedown", function(e) {
+                locationInput.value = loc;
+                locationSuggestions.innerHTML = "";
+                locationSuggestions.style.display = "none";
+            });
+            locationSuggestions.appendChild(div);
+        });
+        locationSuggestions.style.display = "block";
+    });
+
+    // Hide suggestions if clicking away or blurring
+    document.addEventListener("click", function(e) {
+        if (!locationInput.contains(e.target) && !locationSuggestions.contains(e.target)) {
+            locationSuggestions.style.display = "none";
+        }
+    });
+    locationInput.addEventListener("blur", function() {
+        setTimeout(() => locationSuggestions.style.display = "none", 150);
+    });
+}
+</script>
         
     </body>
 </html>

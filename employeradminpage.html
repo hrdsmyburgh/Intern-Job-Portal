@@ -58,19 +58,21 @@
                                     <nav class="d-none d-lg-block">
                                         <ul id="navigation">
                                             <li><a href="index.html">Home</a></li>
+                                            <li><a href="about.html">About</a></li>
                                             <li><a href="job_listing.html">Find Jobs</a></li>
-
+                                            <li><a href="employerjobposting.html">Post Job</a></li>
                                             <li><a href="contact.html">Contact</a></li>
-                                            <li><a href="studentprofile.html">My Profile</a></li>
-                                             <li><a href="myapplications.html" id="nav-myapplications">My Applications</a></li>
-    <li><a href="employeradminpage.html" id="nav-employeradmin">Employer Admin</a></li>
+                                            <li id="nav-myprofile" style="display:none;"><a href="studentprofile.html">My Profile</a></li>
+                                            <li id="nav-myapplications" style="display:none;"><a href="myapplications.html">My Applications</a></li>
+                                            <li id="nav-employeradmin" style="display:none;"><a href="employeradminpage.html">Employer Admin</a></li>
+                                            <li id="nav-login"><a href="loginpage.html">Login</a></li>
+                                            <li id="nav-logout" style="display:none;"><a href="#" onclick="handleLogout(); return false;">Logout</a></li>
                                         </ul>
                                     </nav>
                                 </div>
                                 <!-- Header-btn -->
                                 <div class="header-btn d-none f-right d-lg-block">
                                     <a href="registrationpage.html" class="btn head-btn1">Register</a>
-                                    <a href="#" class="btn head-btn2">Login</a>
                                 </div>
                             </div>
                         </div>
@@ -101,12 +103,7 @@
 
             </ul>
             <ul class="side-menu">
-                <li>
-                    <a href="index.html" class="logout">
-                        <i class='bx bxs-log-out-circle'></i>
-                        <span class="text">Logout</span>
-                    </a>
-                </li>
+
             </ul>
         </section>
         <!-- SIDEBAR -->
@@ -285,6 +282,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });</script>
+    <script>
+function updateNavForAuth() {
+    const userType = localStorage.getItem('userType');
+    document.getElementById('nav-logout').style.display = userType ? '' : 'none';
+    document.getElementById('nav-login').style.display = userType ? 'none' : '';
+    document.getElementById('nav-myprofile').style.display = userType ? '' : 'none';
+    document.getElementById('nav-myapplications').style.display = userType === 'student' ? '' : 'none';
+    document.getElementById('nav-employeradmin').style.display = userType === 'employer' ? '' : 'none';
+}
+function handleLogout() {
+    localStorage.clear();
+    window.location.href = 'loginpage.html';
+}
+document.addEventListener('DOMContentLoaded', updateNavForAuth);
+</script>
     <script>document.addEventListener('DOMContentLoaded', function() {
     const userType = localStorage.getItem('userType');
     if (userType === 'employer') {
