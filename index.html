@@ -538,6 +538,8 @@ function fetchJobLocations() {
     const token = localStorage.getItem('authToken');
     if(!token) {
         console.log('No auth token found for job locations');
+        // Fallback to static locations for demo
+        locations = ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Thika", "Kitale", "Meru", "Kakamega", "Garissa", "Johannesburg", "Cape Town", "Durban", "Pretoria"];
         return;
     }
     fetch('http://127.0.0.1:8000/api/job/jobs/', {
@@ -550,7 +552,11 @@ function fetchJobLocations() {
         locations = Array.from(locSet);
         console.log('Loaded locations:', locations);
     })
-    .catch(err => console.log('Error fetching job locations:', err));
+    .catch(err => {
+        console.log('Error fetching job locations:', err);
+        // Fallback to static locations
+        locations = ["Nairobi", "Mombasa", "Kisumu", "Nakuru", "Eldoret", "Thika", "Kitale", "Meru", "Kakamega", "Garissa", "Johannesburg", "Cape Town", "Durban", "Pretoria"];
+    });
 }
 fetchJobLocations();
 
@@ -558,27 +564,80 @@ if (locationInput) {
     locationInput.addEventListener("input", function() {
         const value = this.value.trim().toLowerCase();
         locationSuggestions.innerHTML = "";
+        
         if (!value || locations.length === 0) {
             locationSuggestions.style.display = "none";
             return;
         }
-        const matches = locations.filter(loc => loc && loc.toLowerCase().startsWith(value));
+        
+        // Enhanced matching: starts with, contains, or partial word match
+        const matches = locations.filter(loc => {
+            if (!loc) return false;
+            const locLower = loc.toLowerCase();
+            
+            // Exact start match (highest priority)
+            if (locLower.startsWith(value)) return true;
+            
+            // Contains match (medium priority)
+            if (locLower.includes(value)) return true;
+            
+            // Partial word match (lower priority)
+            const words = locLower.split(/[\s,]+/);
+            return words.some(word => word.startsWith(value));
+        }).slice(0, 10); // Limit to 10 suggestions
+        
         if (matches.length === 0) {
             locationSuggestions.style.display = "none";
             return;
         }
+        
+        // Sort matches: exact starts first, then contains, then partial words
+        matches.sort((a, b) => {
+            const aLower = a.toLowerCase();
+            const bLower = b.toLowerCase();
+            
+            if (aLower.startsWith(value) && !bLower.startsWith(value)) return -1;
+            if (!aLower.startsWith(value) && bLower.startsWith(value)) return 1;
+            if (aLower.includes(value) && !bLower.includes(value)) return -1;
+            if (!aLower.includes(value) && bLower.includes(value)) return 1;
+            return a.localeCompare(b);
+        });
+        
         matches.forEach(loc => {
             const div = document.createElement("div");
             div.textContent = loc;
-            div.style.padding = "8px";
+            div.style.padding = "10px 12px";
             div.style.cursor = "pointer";
+            div.style.borderBottom = "1px solid #eee";
+            div.style.fontSize = "14px";
+            div.style.transition = "background-color 0.2s";
+            
+            // Highlight matching text
+            const locLower = loc.toLowerCase();
+            if (locLower.includes(value)) {
+                const regex = new RegExp(`(${value})`, 'gi');
+                div.innerHTML = loc.replace(regex, '<strong>$1</strong>');
+            }
+            
+            // Hover effects
+            div.addEventListener("mouseenter", function() {
+                this.style.backgroundColor = "#f8f9fa";
+            });
+            div.addEventListener("mouseleave", function() {
+                this.style.backgroundColor = "#fff";
+            });
+            
+            // Click to select
             div.addEventListener("mousedown", function(e) {
+                e.preventDefault();
                 locationInput.value = loc;
                 locationSuggestions.innerHTML = "";
                 locationSuggestions.style.display = "none";
             });
+            
             locationSuggestions.appendChild(div);
         });
+        
         locationSuggestions.style.display = "block";
     });
 
@@ -588,8 +647,16 @@ if (locationInput) {
             locationSuggestions.style.display = "none";
         }
     });
+    
     locationInput.addEventListener("blur", function() {
         setTimeout(() => locationSuggestions.style.display = "none", 150);
+    });
+    
+    // Show suggestions on focus if there's text
+    locationInput.addEventListener("focus", function() {
+        if (this.value.trim() && locations.length > 0) {
+            this.dispatchEvent(new Event('input'));
+        }
     });
 }
 </script>
