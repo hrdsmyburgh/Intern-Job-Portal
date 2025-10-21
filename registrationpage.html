@@ -1,307 +1,434 @@
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Internship & Job Portal</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
-    <link rel="apple-touch-icon" href="assets/img/logo/logo22.png">
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Internship & Job Portal</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+  <!-- CSS here -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="assets/css/price_rangs.css">
+  <link rel="stylesheet" href="assets/css/flaticon.css">
+  <link rel="stylesheet" href="assets/css/slicknav.css">
+  <link rel="stylesheet" href="assets/css/animate.min.css">
+  <link rel="stylesheet" href="assets/css/magnific-popup.css">
+  <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+  <link rel="stylesheet" href="assets/css/themify-icons.css">
+  <link rel="stylesheet" href="assets/css/slick.css">
+  <link rel="stylesheet" href="assets/css/nice-select.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 
-    <!-- CSS here -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/price_rangs.css">
-    <link rel="stylesheet" href="assets/css/flaticon.css">
-    <link rel="stylesheet" href="assets/css/slicknav.css">
-    <link rel="stylesheet" href="assets/css/animate.min.css">
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/css/themify-icons.css">
-    <link rel="stylesheet" href="assets/css/slick.css">
-    <link rel="stylesheet" href="assets/css/nice-select.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .password-container {
+      position: relative;
+    }
+    .password-container input {
+      width: 100%;
+      padding-right: 35px;
+    }
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 18px;
+      color: #555;
+    }
+    .toggle-password:hover {
+      color: #000;
+    }
+
+    /* small accessibility/click-fix so labels are clickable and decorative dots don't steal clicks */
+    .category label {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+    }
+    /* make the decorative dot not intercept pointer events (so the label/input gets the click) */
+    .category .dot {
+      pointer-events: none;
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: transparent; /* keep existing visuals from your CSS; this doesn't force a look */
+      border: 2px solid #ccc;   /* fallback visual if your CSS expects it */
+    }
+    /* hide default radio appearance but keep it accessible — you already handle visuals with .dot */
+    .category input[type="radio"] {
+      position: relative;
+      width: 16px;
+      height: 16px;
+      margin: 0;
+      accent-color: #2c7be5; /* subtle color for browsers that support it */
+      /* If you prefer completely invisible native radios, uncomment the next two lines:
+         opacity: 0;
+         width: 0;
+      */
+    }
+
+    /* error message small style (keeps look consistent) */
+    .error-message { color: #d9534f; margin-top: 6px; font-size: 0.9rem; }
+  </style>
 </head>
 
 <body>
-<div id="preloader-active">
-    <div class="preloader d-flex align-items-center justify-content-center">
-        <div class="preloader-inner position-relative">
-            <div class="preloader-circle"></div>
-            <div class="preloader-img pere-text">
-                <img src="assets/img/logo/logo22.png" alt="">
-            </div>
-        </div>
+<div id="preloader-active" style="display:none;">
+
+  <div class="preloader d-flex align-items-center justify-content-center">
+    <div class="preloader-inner position-relative">
+      <div class="preloader-circle"></div>
+      <div class="preloader-img pere-text">
+        <img src="assets/img/logo/logo22.png" alt="">
+      </div>
     </div>
+  </div>
 </div>
 
 <header>
-    <div class="header-area header-transparrent">
-        <div class="headder-top header-sticky">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-3 col-md-2">
-                        <div class="logo">
-                            <a href="index.html" title="Go to Home"><img src="assets/img/logo/logo22.png" alt="Home"></a>
-                        </div>  
-                    </div>
-                    <div class="col-lg-9 col-md-9">
-                        <div class="menu-wrapper">
-                            <div class="main-menu">
-                                <nav class="d-none d-lg-block">
-                                    <ul id="navigation">
-                                        <li><a href="index.html" title="Go to Home">Home</a></li>
-                                        <li><a href="job_listing.html" title="Find Jobs">Find Jobs</a></li>
-                                        <li><a href="contact.html" title="Contact">Contact</a></li>
-                                        <li><a href="studentprofile.html" title="My Profile">My Profile</a></li>
-                                        <li><a href="myapplications.html" id="nav-myapplications" title="My Applications">My Applications</a></li>
-                                        <li><a href="employeradminpage.html" id="nav-employeradmin" title="Employer Admin">Employer Admin</a></li>
-                                    </ul>
-                                </nav>
-                            </div>                
-                            <div class="header-btn d-none f-right d-lg-block">
-                                <a href="registrationpage.html" class="btn head-btn1" title="Register">Register</a>
-                                <a href="#" class="btn head-btn2" title="Login">Login</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="mobile_menu d-block d-lg-none"></div>
-                    </div>
-                </div>
+  <div class="header-area header-transparrent">
+    <div class="headder-top header-sticky">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-3 col-md-2">
+            <div class="logo">
+              <a href="index.html"><img src="assets/img/logo/logo22.png" alt=""></a>
             </div>
+          </div>
+          <div class="col-lg-9 col-md-9">
+            <div class="menu-wrapper">
+              <div class="main-menu">
+                <nav class="d-none d-lg-block">
+                  <ul id="navigation">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="job_listing.html">Find Jobs</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="studentprofile.html">My Profile</a></li>
+                    <li><a href="myapplications.html" id="nav-myapplications">My Applications</a></li>
+                    <li><a href="employeradminpage.html" id="nav-employeradmin">Employer Admin</a></li>
+                  </ul>
+                </nav>
+              </div>
+              <div class="header-btn d-none f-right d-lg-block">
+                <a href="registrationpage.html" class="btn head-btn1">Register</a>
+                <a href="#" class="btn head-btn2">Login</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="mobile_menu d-block d-lg-none"></div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </header>
 
 <main>
-    <div class="container">
-        <div class="title">Registration</div>
-        <div class="content">
-            <form id="registrationForm">
-                <div class="user-details">
-                    <div class="input-box">
-                        <label for="first_name">Full Name</label>
-                        <input type="text" name="first_name" id="first_name" placeholder="Enter your name" required> 
-                    </div>
-                    <div class="input-box">
-                        <label for="last_name">Last Name</label>
-                        <input type="text" name="last_name" id="last_name" placeholder="Enter your last name" required>
-                    </div>
-                    <div class="input-box">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" placeholder="Enter your email" required>
-                    </div>
-                    <div class="input-box">
-                        <label for="phone_number">Phone Number</label>
-                        <input type="text" name="phone_number" id="phone_number" placeholder="Enter your number" required>
-                    </div>
-                    <div class="input-box">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" id="password" placeholder="Enter your password" required>
-                    </div>
-                    <div class="input-box">
-                        <label for="confirm_password">Confirm Password</label>
-                        <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm your password" required>
-                    </div>
-                </div>
+  <div class="container">
+    <div class="title">Registration</div>
+    <div class="content">
+     <form id="registrationForm" method="post" action="#" novalidate>
 
-                <div class="gender-details">
-                    <input type="radio" name="gender" id="dot-1" value="male">
-                    <input type="radio" name="gender" id="dot-2" value="female">
-                    <input type="radio" name="gender" id="dot-3" value="other">
-                    <span class="gender-title">Gender</span>
-                    <div class="category">
-                        <label for="dot-1">
-                            <span class="dot one"></span>
-                            <span class="gender">Male</span>
-                        </label>
-                        <label for="dot-2">
-                            <span class="dot two"></span>
-                            <span class="gender">Female</span>
-                        </label>
-                        <label for="dot-3">
-                            <span class="dot three"></span>
-                            <span class="gender">Prefer not to say</span>
-                        </label>
-                    </div>
-                </div>
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Full Name</span>
+            <input type="text" name="first_name" id="first_name" placeholder="Enter your name" required>
+            <div class="error-message" id="error-first_name"></div>
+          </div>
+          <div class="input-box">
+            <span class="details">Last Name</span>
+            <input type="text" name="last_name" id="last_name" placeholder="Enter your last name" required>
+            <div class="error-message" id="error-last_name"></div>
+          </div>
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="email" name="email" id="email" placeholder="Enter your email" required>
+            <div class="error-message" id="error-email"></div>
+          </div>
+          <div class="input-box">
+            <span class="details">Phone Number</span>
+            <input type="text" name="phone_number" id="phone_number" placeholder="Enter your number" required>
+            <div class="error-message" id="error-phone_number"></div>
+          </div>
+          <div class="input-box password-container">
+            <span class="details">Password</span>
+            <input type="password" name="password" id="password" placeholder="Enter your password" required>
+            <i class="fa fa-eye-slash toggle-password" data-target="password"></i>
+            <div class="error-message" id="error-password"></div>
+          </div>
+          <div class="input-box password-container">
+            <span class="details">Confirm Password</span>
+            <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm your password" required>
+            <i class="fa fa-eye-slash toggle-password" data-target="confirm_password"></i>
+            <div class="error-message" id="error-confirm_password"></div>
+          </div>
 
-                <div class="user-type-details">
-                    <span class="details">Register As</span>
-                    <div class="category">
-                        <label>
-                            <input type="radio" name="user_type" value="student" required>
-                            <span class="dot one"></span>
-                            <span class="user-type">Student / External Applicant</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="user_type" value="employer">
-                            <span class="dot two"></span>
-                            <span class="user-type">Employer</span>
-                        </label>
-                    </div>
-                </div>
+<!-- Gender -->
+<div class="gender-details" style="margin-top: 15px;">
+  <span class="gender-title">Gender</span>
+  <div class="category" style="display: flex; flex-direction: column; gap: 6px; margin-top: 8px;">
+    <label style="display: flex; align-items: center; gap: 8px;">
+      <input type="radio" name="gender" value="male">
+      <span class="dot one"></span>
+      <span class="gender">Male</span>
+    </label>
+    <label style="display: flex; align-items: center; gap: 8px;">
+      <input type="radio" name="gender" value="female">
+      <span class="dot two"></span>
+      <span class="gender">Female</span>
+    </label>
+    <label style="display: flex; align-items: center; gap: 8px;">
+      <input type="radio" name="gender" value="other">
+      <span class="dot three"></span>
+      <span class="gender">Prefer not to say</span>
+    </label>
+  </div>
+  <div class="error-message" id="error-gender"></div>
+</div>
 
-                <div class="button">
-                    <input type="submit" value="Register" title="Register now">
-                </div>
-            </form>
+<!-- Register As -->
+<div class="user-type-details" style="margin-top: 25px;">
+  <span class="details">Register As</span>
+  <div class="category" style="display: flex; flex-direction: column; gap: 6px; margin-top: 8px;">
+    <label style="display: flex; align-items: center; gap: 8px;">
+      <input type="radio" name="user_type" value="student" required>
+      <span class="dot one"></span>
+      <span class="user-type">Student / External Applicant</span>
+    </label>
+    <label style="display: flex; align-items: center; gap: 8px;">
+      <input type="radio" name="user_type" value="employer">
+      <span class="dot two"></span>
+      <span class="user-type">Employer</span>
+    </label>
+  </div>
+  <div class="error-message" id="error-user_type"></div>
+</div>
+
+<!-- Student fields -->
+<div id="student-fields" style="display:none; margin-top:15px;">
+  <div class="input-box" style="width:100%;">
+    <span class="details">Student ID</span>
+    <input type="text" id="student_id" name="student_id" placeholder="Enter your Student ID" style="width:100%;">
+    <div class="error-message" id="error-student_id"></div>
+  </div>
+
+  <div class="input-box" style="width:100%;">
+    <span class="details">Degree</span>
+    <input type="text" id="degree" name="degree" placeholder="Enter your Degree" style="width:100%;">
+    <div class="error-message" id="error-degree"></div>
+  </div>
+
+  <div class="input-box" style="width:100%;">
+    <span class="details">Year of Study</span>
+    <input type="text" id="year_of_study" name="year_of_study" placeholder="Enter your year of study" style="width:100%;">
+    <div class="error-message" id="error-year_of_study"></div>
+  </div>
+
+
+</div>
+
+<!-- Employer fields -->
+<div id="employer-fields" style="display:none; margin-top:15px;">
+  <div class="input-box" style="width:100%;">
+    <span class="details">Company Name</span>
+    <input type="text" id="company_name" name="company_name" placeholder="Enter your company name" style="width:100%;">
+    <div class="error-message" id="error-company_name"></div>
+  </div>
+  <div class="input-box" style="width:100%;">
+    <span class="details">Industry</span>
+    <input type="text" id="industry" name="industry" placeholder="Enter your industry" style="width:100%;">
+    <div class="error-message" id="error-industry"></div>
+  </div>
+</div>
+
+
+
+        </div>  
+        <div class="button">
+          <input type="submit" value="Register">
         </div>
+        <!-- Success message -->
+<div class="success-message" id="success-message" style="color: green; text-align: center; margin-top: 10px; display: none;">
+  Registration successful!
+</div>
+
+      </form>
     </div>
+  </div>
 </main>
 
-<footer>
-    <div class="footer-area footer-bg footer-padding">
-        <div class="container">
-            <div class="row d-flex justify-content-between">
-                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                    <div class="single-footer-caption mb-50">
-                        <div class="single-footer-caption mb-30">
-                            <div class="footer-tittle">
-                                <h4>About Us</h4>
-                                <div class="footer-pera">
-                                    <p>Internship & Job Portal Hub. A place where you can find your dream job.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<footer></footer>
 
-                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
-                    <div class="single-footer-caption mb-50">
-                        <div class="footer-tittle">
-                            <h4>Important Link</h4>
-                            <ul>
-                                <li><a href="index.html" title="Go to Home">Home</a></li>
-                                <li><a href="job_listing.html" title="Find Jobs">Find Jobs</a></li>
-                                <li><a href="contact.html" title="Contact">Contact</a></li>
-                                <li><a href="studentprofile.html" title="My Profile">My Profile</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
-                    <div class="single-footer-caption mb-50">
-                        <div class="footer-tittle">
-                            <h4>Newsletter</h4>
-                            <div class="footer-pera footer-pera2">
-                                <p>Sign up to our newsletter to be updated with new postings!</p>
-                            </div>
-                            <div class="footer-form" >
-                                <div id="mc_embed_signup">
-                                    <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                                            method="get" class="subscribe_form relative mail_part">
-                                        <input type="email" name="email" id="newsletter-form-email" placeholder="Email Address"
-                                                class="placeholder hide-on-focus" onfocus="this.placeholder = ''"
-                                                onblur="this.placeholder = ' Email Address '">
-                                        <div class="form-icon">
-                                            <button type="submit" name="submit" id="newsletter-submit" title="Submit newsletter email"
-                                                     class="email_icon newsletter-submit button-contactForm"><img src="assets/img/icon/form.png" alt="Submit"></button>
-                                        </div>
-                                        <div class="mt-10 info"></div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</footer>
-
+<!-- JS Files -->
 <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
 <script src="./assets/js/vendor/jquery-1.12.4.min.js"></script>
 <script src="./assets/js/popper.min.js"></script>
 <script src="./assets/js/bootstrap.min.js"></script>
-<script src="./assets/js/jquery.slicknav.min.js"></script>
-<script src="./assets/js/owl.carousel.min.js"></script>
-<script src="./assets/js/slick.min.js"></script>
-<script src="./assets/js/price_rangs.js"></script>
-<script src="./assets/js/wow.min.js"></script>
-<script src="./assets/js/animated.headline.js"></script>
-<script src="./assets/js/jquery.magnific-popup.js"></script>
-<script src="./assets/js/jquery.scrollUp.min.js"></script>
-<script src="./assets/js/jquery.nice-select.min.js"></script>
-<script src="./assets/js/jquery.sticky.js"></script>
-<script src="./assets/js/contact.js"></script>
-<script src="./assets/js/jquery.form.js"></script>
-<script src="./assets/js/jquery.validate.min.js"></script>
-<script src="./assets/js/mail-script.js"></script>
-<script src="./assets/js/jquery.ajaxchimp.min.js"></script>
-<script src="./assets/js/plugins.js"></script>
 <script src="./assets/js/main.js"></script>
 
+<!-- ✅ Working script -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const regForm = document.getElementById("registrationForm"); 
 
-    if (regForm) {
-        regForm.addEventListener("submit", async function(event) {
-            event.preventDefault(); 
-            
-            const firstName = document.getElementById("first_name").value;
-            const lastName = document.getElementById("last_name").value;
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirm_password").value;
-            const userTypeElement = document.querySelector('input[name="user_type"]:checked');
-            const role = userTypeElement ? userTypeElement.value : null;
+  // 👁️ Password toggle
+  document.querySelectorAll(".toggle-password").forEach(icon => {
+    icon.addEventListener("click", function () {
+      const targetId = this.getAttribute("data-target");
+      const input = document.getElementById(targetId);
+      if (!input) return;
+      if (input.type === "password") {
+        input.type = "text";
+        this.classList.remove("fa-eye-slash");
+        this.classList.add("fa-eye");
+      } else {
+        input.type = "password";
+        this.classList.remove("fa-eye");
+        this.classList.add("fa-eye-slash");
+      }
+    });
+  });
 
-            if (password !== confirmPassword) {
-                alert("Passwords do not match.");
-                return;
-            }
-            if (!role) {
-                alert("Please select a registration type (Student or Employer).");
-                return;
-            }
+  const regForm = document.getElementById("registrationForm");
+  const userTypeRadios = document.querySelectorAll('input[name="user_type"]');
+  const employerFields = document.getElementById('employer-fields');
+  const studentFields = document.getElementById('student-fields');
 
-            const apiData = {
-                username: email,
-                email: email,
-                password: password,
-                role: role,  // 'student' or 'employer'
-                first_name: firstName,
-                last_name: lastName,
-                phone_number: document.getElementById("phone_number").value,
-                gender: document.querySelector('input[name="gender"]:checked').value
-            };
+  // Show/hide fields when Register As changes (employer appears below Register As because of DOM order)
+  userTypeRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      const selected = document.querySelector('input[name="user_type"]:checked')?.value;
+      if (selected === 'employer') {
+        employerFields.style.display = 'block';
+        studentFields.style.display = 'none';
+      } else {
+        employerFields.style.display = 'none';
+        studentFields.style.display = 'block';
+      }
+      // clear any validation errors for those blocks
+      document.getElementById('error-company_name').textContent = '';
+      document.getElementById('error-industry').textContent = '';
+      document.getElementById('error-student_id').textContent = '';
+      document.getElementById('error-degree').textContent = '';
+      document.getElementById('error-user_type').textContent = '';
+    });
+  });
 
-            console.log("Submitting data:", apiData); 
+  // helper to set error text
+  function setError(id, msg) {
+    const el = document.getElementById('error-' + id);
+    if (el) el.textContent = msg;
+  }
+  function clearAllErrors() {
+    ['first_name','last_name','email','phone_number','password','confirm_password','gender','user_type','company_name','industry','student_id','degree']
+      .forEach(k => { const el = document.getElementById('error-' + k); if (el) el.textContent = ''; });
+  }
 
-            try {
-                const response = await fetch(
-                    "http://127.0.0.1:8000/api/users/register/",
-                    {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(apiData)
-                    }
-                );
+  // Form submission with inline error messages
+  regForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    clearAllErrors();
 
-                if (response.ok) {
-                    const data = await response.json();
-                    alert("Registration successful!");
-                    localStorage.setItem("userType", apiData.role);
-                    localStorage.setItem("username", firstName + " " + lastName);
-                    window.location.href = "loginpage.html";
-                } else {
-                    const errorData = await response.json();
-                    alert("Registration Failed. Server Error: " + JSON.stringify(errorData));
-                }
-            } catch (error) {
-                alert("Request failed. Please check your backend's CORS configuration. Error: " + error);
-            }
-        });
+    const firstName = document.getElementById("first_name").value.trim();
+    const lastName = document.getElementById("last_name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone_number").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirm_password").value;
+    const role = document.querySelector('input[name="user_type"]:checked')?.value;
+    const gender = document.querySelector('input[name="gender"]:checked')?.value;
+
+    let hasError = false;
+
+    if (!firstName) { setError('first_name','First name is required.'); hasError = true; }
+    if (!lastName)  { setError('last_name','Last name is required.'); hasError = true; }
+    if (!email)     { setError('email','Email is required.'); hasError = true; }
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError('email','Enter a valid email address.'); hasError = true; }
+    if (!phone)     { setError('phone_number','Phone number is required.'); hasError = true; }
+    if (!password)  { setError('password','Password is required.'); hasError = true; }
+    if (!confirmPassword) { setError('confirm_password','Please confirm password.'); hasError = true; }
+    if (password && confirmPassword && password !== confirmPassword) { setError('confirm_password','Passwords do not match.'); hasError = true; }
+    if (!gender)    { setError('gender','Please select a gender.'); hasError = true; }
+    if (!role)      { setError('user_type','Please select Student or Employer.'); hasError = true; }
+
+   if (role === 'student') {
+  const studentId = document.getElementById("student_id").value.trim();
+  const degree = document.getElementById("degree").value.trim();
+  const year = document.getElementById("year_of_study").value.trim();
+  if (!studentId) { setError('student_id','Student ID is required for students.'); hasError = true; }
+  if (!degree)    { setError('degree','Degree is required for students.'); hasError = true; }
+  if (!year)      { setError('year_of_study','Year of study is required for students.'); hasError = true; }
+}
+
+
+    if (role === 'employer') {
+      const company = document.getElementById("company_name").value.trim();
+      const industry = document.getElementById("industry").value.trim();
+      if (!company) { setError('company_name','Company name is required for employers.'); hasError = true; }
+      if (!industry){ setError('industry','Industry is required for employers.'); hasError = true; }
     }
+
+    if (hasError) {
+      // stop and let user fix fields
+      return;
+    }
+
+    // build payload
+    const apiData = {
+      username: email, email, password, role,
+      first_name: firstName, last_name: lastName,
+      phone_number: phone, gender
+    };
+    if (role === "student") {
+      apiData.student_id = document.getElementById("student_id").value.trim();
+      apiData.degree = document.getElementById("degree").value.trim();
+      apiData.year_of_study = document.getElementById("year_of_study").value.trim();
+    }
+    if (role === "employer") {
+      apiData.company_name = document.getElementById("company_name").value.trim();
+      apiData.industry = document.getElementById("industry").value.trim();
+    }
+
+    try {
+      const res = await fetch("http://127.0.0.1:8000/api/users/register/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(apiData)
+      });
+      if (res.ok) {
+        alert("Registration successful!");
+        window.location.href = "loginpage.html";
+      } else {
+        const err = await res.json();
+        // server-side validation messages: show near top-level fields if present
+        // try to map server errors to fields if keys match
+        if (typeof err === 'object' && err !== null) {
+          Object.keys(err).forEach(key => {
+            // server may send arrays, strings or non_field_errors
+            const msg = Array.isArray(err[key]) ? err[key].join(' ') : String(err[key]);
+            if (document.getElementById('error-' + key)) {
+              setError(key, msg);
+            } else {
+              // fallback alert if unmapped
+              console.error('Server error', key, err[key]);
+            }
+          });
+        } else {
+          alert("Registration Failed. " + JSON.stringify(err));
+        }
+      }
+    } catch (e) {
+      alert("Error: " + e);
+    }
+  });
 });
 </script>
-
 </body>
-</html>
+</html>                                 
